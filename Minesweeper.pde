@@ -7,7 +7,7 @@ private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of 
 
 void setup ()
 {
- size(500, 550);
+ size(600, 650);
  textAlign(CENTER,CENTER);
  
  // make the manager
@@ -56,7 +56,7 @@ public void displayLosingMessage(){
  buttons[8][8].setLabel("L");
  buttons[8][9].setLabel("O");
  buttons[8][10].setLabel("S");
- buttons[8][11].setLabel("T");
+ buttons[8][11].setLabel("E");
  //Show all mines
  for (int i = 0; i < mines.size(); i++){
    mines.get(i).clicked = true;
