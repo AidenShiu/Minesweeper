@@ -2,7 +2,6 @@ import de.bezier.guido.*;
 private static final int NUM_ROWS = 16;
 private static final int NUM_COLS = 16;
 public final static int NUM_MINES = 40;
-int numFlags = 40;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -122,15 +121,39 @@ public class MSButton
  
  // called by manager
  public void mousePressed (){
-   clicked = true;
-   for (int r = myRow - 1; r <= myRow + 1; r++){
-      for (int c = myCol - 1; c <= myCol + 1; c++){
-   if (isValid(r, c) && buttons[r][c].clicked == false){
-       buttons[r][c].mousePressed();}
-     }
-   }
+ clicked = true;
+ if (mouseButton == RIGHT && click == false){
+   flagged = !flagged;
+ if (flagged == false){
+   clicked = false;
+ numFlags += 1;
  }
-
+ }
+ else if (flagged == true && numFlags !=0){
+   numFlags -=1;
+ }
+ else if (numFlags == 0) {
+   flagged = !flagged;
+ clicked = false;
+ }
+ else if (!flagged && mines.contains(buttons[myRow][myCol])){
+ displayLosingMessage();
+ }
+ else if (!flagged && countMines(myRow, myCol) > 0){
+   setLabel(countMines(myRow, myCol));
+ }
+ else if (!flagged) {
+ for (int r = myRow - 1; r <= myRow + 1; r++){
+ for (int c = myCol - 1; c <= myCol + 1; c++){
+ if (isValid(r, c) && buttons[r][c].clicked == false){
+ 
+ buttons[r][c].mousePressed();
+ }
+ }
+ }
+ }
+ }
+ 
 public void draw (){
  if (flagged)
    fill(0);
@@ -148,13 +171,16 @@ public void draw (){
  textSize(size);
  text(myLabel,x+width/2,y+height/2);
  }
- public void setLabel(String newLabel){
-   myLabel = newLabel;
+ public void setLabel(String newLabel)
+ {
+ myLabel = newLabel;
  }
- public void setLabel(int newLabel){
-   myLabel = ""+ newLabel;
+ public void setLabel(int newLabel)
+ {
+ myLabel = ""+ newLabel;
  }
- public boolean isFlagged(){
-   return flagged;
+ public boolean isFlagged()
+ {
+ return flagged;
  }
-}
+ }
