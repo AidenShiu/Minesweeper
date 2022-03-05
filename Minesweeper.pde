@@ -7,7 +7,7 @@ private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of 
 
 void setup ()
 {
- size(600, 650);
+ size(500, 550);
  textAlign(CENTER,CENTER);
  
  // make the manager
@@ -146,12 +146,7 @@ public void draw (){
  click = true;
  }
  else
- fill( 100 );
-
- rect(x, y, width, height);
- fill(myColor);
- textSize(size);
- text(myLabel,x+width/2,y+height/2);}
+   fill(100);
 
  public void setLabel(String newLabel){
    myLabel = newLabel;
