@@ -146,6 +146,10 @@ public void draw (){
  click = true;}
  else{
    fill(100);}
+ rect(x, y, width, height);
+ fill(myColor);
+ textSize(size);
+ text(myLabel,x+width/2,y+height/2);
 }
 
  public void setLabel(String newLabel){
