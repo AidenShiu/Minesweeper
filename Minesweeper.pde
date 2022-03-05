@@ -7,7 +7,7 @@ private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of 
 
 void setup ()
 {
- size(600, 650);
+ size(500, 550);
  textAlign(CENTER,CENTER);
  
  // make the manager
@@ -139,14 +139,14 @@ public class MSButton
   }
  
 public void draw (){
- if (clicked && mines.contains(this))
-   fill(255,0,0);
+ if (clicked && mines.contains(this)){
+   fill(255,0,0);}
  else if(clicked){
    fill(200);
- click = true;
- }
- else
-   fill(100);
+ click = true;}
+ else{
+   fill(100);}
+}
 
  public void setLabel(String newLabel){
    myLabel = newLabel;
