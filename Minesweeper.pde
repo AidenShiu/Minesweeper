@@ -40,7 +40,9 @@ public void draw (){
  }
  fill(#E0F00F);
  textAlign(CENTER, CENTER);
- text(countTiles + " tiles remaining.", 300, 620);
+ text(countTiles + " tiles remaining.", 300, 625);
+ if (countTiles == 0)
+   text(countTiles + " tiles remaining. Nice job!", 300, 625);
 }
 
 public boolean isWon(){
@@ -131,6 +133,7 @@ public class MSButton
  }
  else if (!flagged && countMines(myRow, myCol) > 0){
    setLabel(countMines(myRow, myCol));
+   countTiles--;
  }
  else if (!flagged){
    for (int r = myRow - 1; r <= myRow + 1; r++){
