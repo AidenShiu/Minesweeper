@@ -2,6 +2,7 @@ import de.bezier.guido.*;
 private static final int NUM_ROWS = 16;
 private static final int NUM_COLS = 16;
 public final static int NUM_MINES = 40;
+int countTiles = 216;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -37,6 +38,9 @@ public void draw (){
  if(isWon() == true){
    displayWinningMessage();
  }
+ fill(#E0F00F);
+ textAlign(CENTER, CENTER);
+ text(countTiles + " tiles remaining.", 300, 620);
 }
 
 public boolean isWon(){
@@ -132,7 +136,9 @@ public class MSButton
    for (int r = myRow - 1; r <= myRow + 1; r++){
      for (int c = myCol - 1; c <= myCol + 1; c++){
        if (isValid(r, c) && buttons[r][c].clicked == false){
-         buttons[r][c].mousePressed();}
+         buttons[r][c].mousePressed();
+         countTiles--;
+        }
        }
       }
     }
