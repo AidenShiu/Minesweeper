@@ -125,35 +125,38 @@ public class MSButton
  
  // called by manager
  public void mousePressed (){
-   clicked = true;
-   if (mouseButton == RIGHT && click == false){
-     flagged = !flagged;
-   if (flagged == false){
-     clicked = false;
-     numFlags = numFlags + 1;}
-   }
-   else if (flagged == true && numFlags !=0){
-     numFlags = numFlags - 1;}
-   else if (numFlags == 0){
-     flagged = !flagged;
-     clicked = false;
-   }
-   else if (!flagged && mines.contains(buttons[myRow][myCol])){
-     displayLosingMessage();
-   }
-   else if (!flagged && countMines(myRow, myCol) > 0){
-     setLabel(countMines(myRow, myCol));
-   }
-   else if (!flagged){
-     for (int r = myRow - 1; r <= myRow + 1; r++){
-       for (int c = myCol - 1; c <= myCol + 1; c++){
-         if (isValid(r, c) && buttons[r][c].clicked == false){
-           buttons[r][c].mousePressed();}
-         }
-        }
+      clicked = true;
+      if (mouseButton == RIGHT && click == false){
+        flagged = !flagged;
+      if (flagged == false){
+        clicked = false;
+        numFlags += 1;
        }
-    }
- 
+      else if (flagged == true && numFlags !=0){
+        numFlags -=1;
+       }
+      else if (numFlags == 0){
+            flagged = !flagged;
+            clicked = false;
+      }
+      }
+      else if (!flagged && mines.contains(buttons[myRow][myCol])){
+          displayLosingMessage();
+      }
+      else if (!flagged && countMines(myRow, myCol) > 0){
+          setLabel(countMines(myRow, myCol));
+      }
+      else if (!flagged) {
+          for (int r = myRow - 1; r <= myRow + 1; r++){
+            for (int c = myCol - 1; c <= myCol + 1; c++){
+              if (isValid(r, c) && buttons[r][c].clicked == false){
+                buttons[r][c].mousePressed();
+              }
+             }
+            }
+         }
+}
+    
 public void draw (){
  if (flagged){
    fill(0);}
@@ -162,9 +165,9 @@ public void draw (){
  else if (clicked){
    fill(200);
    click = true;}
- else{
- fill(100);}
-}
+ else
+ fill(100);
+
  rect(x, y, width, height);
  fill(myColor);
  textSize(size);
