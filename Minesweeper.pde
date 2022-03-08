@@ -2,6 +2,7 @@ import de.bezier.guido.*;
 private static final int NUM_ROWS = 16;
 private static final int NUM_COLS = 16;
 public final static int NUM_MINES = 40;
+int numFlags = 40;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
@@ -39,7 +40,7 @@ public void draw (){
  }
  fill(#E0F00F);
  textAlign(CENTER, CENTER);
- text("16x16 board with 40 mines.", 300, 625);
+ text("16x16 board, 40 mines, " + numFlags + " flags.", 300, 625);
 }
 
 public boolean isWon(){
@@ -124,32 +125,46 @@ public class MSButton
  
  // called by manager
  public void mousePressed (){
- clicked = true;
- if (!flagged && mines.contains(buttons[myRow][myCol])){
-   displayLosingMessage();
- }
- else if (!flagged && countMines(myRow, myCol) > 0){
-   setLabel(countMines(myRow, myCol));
- }
- else if (!flagged){
-   for (int r = myRow - 1; r <= myRow + 1; r++){
-     for (int c = myCol - 1; c <= myCol + 1; c++){
-       if (isValid(r, c) && buttons[r][c].clicked == false){
-         buttons[r][c].mousePressed();
+   clicked = true;
+   if (mouseButton == RIGHT && click == false){
+     flagged = !flagged;
+   if (flagged == false){
+     clicked = false;
+     numFlags = numFlags + 1;}
+   }
+   else if (flagged == true && numFlags !=0){
+     numFlags = numFlags - 1;}
+   else if (numFlags == 0){
+     flagged = !flagged;
+     clicked = false;
+   }
+   else if (!flagged && mines.contains(buttons[myRow][myCol])){
+     displayLosingMessage();
+   }
+   else if (!flagged && countMines(myRow, myCol) > 0){
+     setLabel(countMines(myRow, myCol));
+   }
+   else if (!flagged){
+     for (int r = myRow - 1; r <= myRow + 1; r++){
+       for (int c = myCol - 1; c <= myCol + 1; c++){
+         if (isValid(r, c) && buttons[r][c].clicked == false){
+           buttons[r][c].mousePressed();}
+         }
         }
        }
-      }
     }
-  }
  
 public void draw (){
- if (clicked && mines.contains(this)){
+ if (flagged){
+   fill(0);}
+ else if (clicked && mines.contains(this)){
    fill(255,0,0);}
- else if(clicked){
+ else if (clicked){
    fill(200);
- click = true;}
+   click = true;}
  else{
-   fill(100);}
+ fill(100);}
+}
  rect(x, y, width, height);
  fill(myColor);
  textSize(size);
